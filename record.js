@@ -1,3 +1,4 @@
+by wangyuliang
 Object.defineProperty()
 Object.defineProperties()
 Object.getOwnPropertyDescriptor()
