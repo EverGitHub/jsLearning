@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			#content span{
+				color: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="content">
+			习近平是国家领导人，周永康被抓，6.4是一个牛逼的日子，中共万岁
+		</div>
+		<script type="text/javascript">
+			
+			var text = document.getElementById('content').innerText;
+			
+			var error = ['习近平','周永康','6.4',"中共"]
+			for (var i = 0; i < error.length; i++) {
+				var toHtml = '<span>'+error[i]+'</span>';
+				var _text = text.replace(error[i],toHtml);
+				text = _text;
+			}
+			
+			var _content = document.getElementById('content')
+			_content.innerHTML = text;
+			
+			
+		</script>
+	</body>
+
+</html>
