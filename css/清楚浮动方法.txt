@@ -32,3 +32,4 @@
 			 display:table; /*采用此方法可以有效避免浏览器兼容问题*/
 			 clear:both;
 		}
+change by github
