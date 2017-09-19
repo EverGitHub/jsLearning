@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>原生拖拽</title>
+    <style>
+        #testDiv {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: red;
+            border-radius: 50%;
+        }
+
+        #testDiv::after {
+            content: '';
+            display: block;
+            border-bottom: 30px solid blue;
+            border-top: 30px solid purple;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            position: absolute;
+            top: 63px;
+            left: 74px;
+            border-radius: 50%;
+            transform: rotate(30deg);
+            -ms-transform: rotate(30deg);
+            /* IE 9 */
+            -moz-transform: rotate(30deg);
+            /* Firefox */
+            -webkit-transform: rotate(30deg);
+            /* Safari 和 Chrome */
+            -o-transform: rotate(30deg);
+            /* Opera */
+            animation: myfirst 5s linear 2s infinite alternate;
+            -webkit-animation: myfirst 5s linear 2s infinite alternate;
+        }
+
+        @keyframes myfirst {
+            0% {
+                background: black;
+                left: 50px;
+                top: 20px;
+            }
+            25% {
+                background: yellow;
+                left: 170px;
+                top: 20px;
+            }
+            50% {
+                background: blue;
+                left: 200px;
+                top: 200px;
+            }
+            75% {
+                background: green;
+                left: 50px;
+                top: 200px;
+            }
+            100% {
+                background: white;
+                left: 100px;
+                top: 0px;
+            }
+        }
+
+        @-webkit-keyframes myfirst
+        /* Safari and Chrome */
+
+        {
+            0% {
+                background: black;
+                left: 50px;
+                top: 20px;
+            }
+            25% {
+                background: yellow;
+                left: 170px;
+                top: 20px;
+            }
+            50% {
+                background: blue;
+                left: 200px;
+                top: 200px;
+            }
+            75% {
+                background: green;
+                left: 50px;
+                top: 200px;
+            }
+            100% {
+                background: white;
+                left: 100px;
+                top: 0px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="testDiv" class="dragElement"></div>
+    <script>
+        var eventUtil = {
+            getEvent: function (event) {
+                return event ? event : window.event;
+            },
+            getTarget: function (event) {
+                return event.target || event.srcElement;
+            },
+            addEvent: function (ele, type, handler) {
+                if (ele.addEventListener) {
+                    ele.addEventListener(type, handler, false);
+                } else if (ele.attachEvent) {
+                    ele.attachEvent('on' + type, handler);
+                } else {
+                    ele['on' + type] = handler;
+                }
+            },
+            removeEvent: function (ele, type, handler) {
+                if (ele.removeEventListener) {
+                    ele.removeEventListener(type, handler, false);
+                } else if (ele.detachEvent) {
+                    ele.detachEvent('on' + type, handler);
+                } else {
+                    ele['on' + type] = null;
+                }
+            },
+            stopPropogation: function (event) {
+                if (event.stopPropogation) {
+                    event.stopPropogation();
+                } else {
+                    event.cancelBubble = true;
+                }
+            },
+            preventDefault: function (event) {
+                if (event.preventDefault) {
+                    event.preventDefault();
+                } else {
+                    event.returnValue = false;
+                }
+            }
+        }
+
+
+        var Drag = function () {
+            var dragging = null;
+            var mousemoveTime = 0;
+            var diffX = 0;
+            var diffY = 0;
+
+            function dragSomething(event) {
+                event = eventUtil.getEvent();
+                var target = eventUtil.getTarget(event);
+                switch (event.type) {
+                    case 'mousedown':
+                        if (target.className.indexOf('dragElement') > -1) {
+                            dragging = target;
+                            diffX = event.clientX - target.offsetLeft;
+                            diffY = event.clientY - target.offsetTop;
+                        }
+                        break;
+
+                    case 'mousemove':
+                        if (dragging !== null) {
+                            mousemoveTime++;
+                            if (mousemoveTime > 1) {
+                                dragging.style.top = (event.clientY - diffY) + 'px';
+                                dragging.style.left = (event.clientX - diffX) + 'px';
+                            }
+
+                        }
+                        break;
+
+                    case 'mouseup':
+                        dragging = null;
+                        mousemoveTime = 0;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            return {
+                enable: function () {
+                    eventUtil.addEvent(document, 'mousedown', dragSomething);
+                    eventUtil.addEvent(document, 'mousemove', dragSomething);
+                    eventUtil.addEvent(document, 'mouseup', dragSomething);
+
+                },
+                disable: function () {
+                    eventUtil.removeEvent(document, 'mousedown', dragSomething);
+                    eventUtil.removeEvent(document, 'mousemove', dragSomething);
+                    eventUtil.removeEvent(document, 'mouseup', dragSomething);
+                }
+            }
+        }
+
+        Drag().enable();
+    </script>
+</body>
+
+</html>
