@@ -33,8 +33,8 @@
             /* Safari 和 Chrome */
             -o-transform: rotate(30deg);
             /* Opera */
-            animation: myfirst 5s linear 2s infinite alternate;
-            -webkit-animation: myfirst 5s linear 2s infinite alternate;
+            animation: myfirst 5s linear 1s infinite alternate;
+            -webkit-animation: myfirst 5s linear 1s infinite alternate;
         }
 
         @keyframes myfirst {
@@ -42,26 +42,36 @@
                 background: black;
                 left: 50px;
                 top: 20px;
+				transform: rotate(30deg);
+				-webkit-transform: rotate(30deg);
             }
             25% {
                 background: yellow;
                 left: 170px;
                 top: 20px;
+				transform: rotate(60deg);
+				-webkit-transform: rotate(60deg);
             }
             50% {
                 background: blue;
                 left: 200px;
                 top: 200px;
+				transform: rotate(90deg);
+				-webkit-transform: rotate(90deg);
             }
             75% {
                 background: green;
                 left: 50px;
                 top: 200px;
+				transform: rotate(120deg);
+				-webkit-transform: rotate(120deg);
             }
             100% {
                 background: white;
                 left: 100px;
                 top: 0px;
+				transform: rotate(150deg);
+				-webkit-transform: rotate(150deg);
             }
         }
 
@@ -73,26 +83,36 @@
                 background: black;
                 left: 50px;
                 top: 20px;
+				transform: rotate(30deg);
+				-webkit-transform: rotate(30deg);
             }
             25% {
                 background: yellow;
                 left: 170px;
                 top: 20px;
+				transform: rotate(60deg);
+				-webkit-transform: rotate(60deg);
             }
             50% {
                 background: blue;
                 left: 200px;
                 top: 200px;
+				transform: rotate(90deg);
+				-webkit-transform: rotate(90deg);
             }
             75% {
                 background: green;
                 left: 50px;
                 top: 200px;
+				transform: rotate(120deg);
+				-webkit-transform: rotate(120deg);
             }
             100% {
                 background: white;
                 left: 100px;
                 top: 0px;
+				transform: rotate(150deg);
+				-webkit-transform: rotate(150deg);
             }
         }
     </style>
