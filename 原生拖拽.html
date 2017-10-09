@@ -165,7 +165,6 @@
 
         var Drag = function () {
             var dragging = null;
-            var mousemoveTime = 0;
             var diffX = 0;
             var diffY = 0;
 
@@ -183,18 +182,14 @@
 
                     case 'mousemove':
                         if (dragging !== null) {
-                            mousemoveTime++;
-                            if (mousemoveTime > 1) {
                                 dragging.style.top = (event.clientY - diffY) + 'px';
                                 dragging.style.left = (event.clientX - diffX) + 'px';
-                            }
-
+				//这里用dragging而不用target, target在快速拖动时会改变为<html>根节点,而dragging会一直保存着拖动的元素
                         }
                         break;
 
                     case 'mouseup':
                         dragging = null;
-                        mousemoveTime = 0;
                         break;
 
                     default:
